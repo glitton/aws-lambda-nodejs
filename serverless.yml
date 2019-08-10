@@ -1,10 +1,10 @@
-service: baddadjokesbot
+service: jokesbot-glitton
 
 provider:
   name: aws
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'eu-west-1'}
+  region: ${opt:region, 'eu-west-2'}
 
 custom:
   env: ${file(./${self:provider.stage}.env.json)}
@@ -13,10 +13,16 @@ functions:
   bot:
     handler: handler.bot
     events:
-      - schedule: rate(5 hours)
+      - schedule: rate(720 minutes)
     environment:
       JOKES_API_URL: ${self:custom.env.JOKES_API_URL}
       TWITTER_CONSUMER_KEY: ${self:custom.env.TWITTER_CONSUMER_KEY}
       TWITTER_CONSUMER_SECRET: ${self:custom.env.TWITTER_CONSUMER_SECRET}
       TWITTER_ACCESS_TOKEN_KEY: ${self:custom.env.TWITTER_ACCESS_TOKEN_KEY}
       TWITTER_ACCESS_TOKEN_SECRET: ${self:custom.env.TWITTER_ACCESS_TOKEN_SECRET}
+      NEW_RELIC_NO_CONFIG_FILE: ${self:custom.env.NEW_RELIC_NO_CONFIG_FILE}
+      NEW_RELIC_APP_NAME: ${self:custom.env.NEW_RELIC_APP_NAME}
+      NEW_RELIC_DISTRIBUTED_TRACING_ENABLED: ${self:custom.env.NEW_RELIC_DISTRIBUTED_TRACING_ENABLED}
+      NEW_RELIC_ACCOUNT_ID: ${self:custom.env.NEW_RELIC_ACCOUNT_ID}
+      NEW_RELIC_PRIMARY_APPLICATION_ID: ${self:custom.env.NEW_RELIC_PRIMARY_APPLICATION_ID}
+      NEW_RELIC_TRUSTED_ACCOUNT_KEY: ${self:custom.env.NEW_RELIC_TRUSTED_ACCOUNT_KEY}
