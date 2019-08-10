@@ -13,7 +13,7 @@ functions:
   bot:
     handler: handler.bot
     events:
-      - schedule: rate(720 minutes)
+      - schedule: rate(5 minutes)
     environment:
       JOKES_API_URL: ${self:custom.env.JOKES_API_URL}
       TWITTER_CONSUMER_KEY: ${self:custom.env.TWITTER_CONSUMER_KEY}
